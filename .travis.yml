@@ -1,0 +1,59 @@
+# Config file for automatic testing at travis-ci.org
+dist: xenial
+language: python
+env:
+  global:
+    - COVERALLS_PARALLEL=true
+matrix:
+  fast_finish: true
+  include:
+    - name: Check code style
+      python: 3.7
+      env: TOXENV="run-blackcheck,run-isortcheck"
+    - name: Docs
+      python: 3.7
+      env:
+        - DOCS="true"
+        # TODO: Doctr deploy key
+        #       * Run `tox -e run-cmd -- doctr configure --no-upload-key --no-authenticate --keypath docs/doctr_deploy_key`
+        #       * Follow doctr's instructions regarding setting up the deploy key on Github
+        #       * Replace the "secure: ..." line below with the "secure" line printed by doctr
+        # - secure: ...
+        # TODO: Encrypted GITHUB_TOKEN for deployment of documentation artifacts to Github Releases
+        #       * Generate an access token, see https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
+        #       * run `tox -e run-travis-encrypt`
+        #       * paste in e.g. "GITHUB_TOKEN=4cef449e1762da64012e8f3250cf002524e14cd1" when prompted for "Password"
+        #       * replace the "secure: ..." information below with the "secure" information printed by travis-encrypt
+        # # GITHUB_TOKEN
+        # - secure: ...
+      addons:
+        apt_packages:
+    - name: Python 3.6
+      python: 3.6
+      env: TOXENV=py36-test
+    - name: Python 3.7
+      python: 3.7
+      env: TOXENV=py37-test
+    - name: Python 3.8
+      python: 3.8
+      env: TOXENV=py38-test
+
+install:
+  # any failure stops the build
+  - set -e
+  - pip install tox
+  - pip freeze
+  - printenv
+script:
+  # any failure stops testing immediately
+  - set -e
+  - |
+    if [[ "${DOCS}" == "true" ]]; then
+      source .travis/doctr_build.sh
+    else
+      tox -e $TOXENV
+    fi
+  - echo "DONE"
+after_success:
+  # coveralls is prone to random failures (which would fail the Travis job), so we'll handle those silently
+  - if [[ "${TOXENV}" =~ test ]]; then tox -e $(echo "${TOXENV}" | sed s/test/runcmd/) -- coveralls -v || echo "Cannot upload to coveralls"; fi
