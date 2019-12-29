@@ -14,18 +14,10 @@ matrix:
       python: 3.7
       env:
         - DOCS="true"
-        # TODO: Doctr deploy key
-        #       * Run `tox -e run-cmd -- doctr configure --no-upload-key --no-authenticate --keypath docs/doctr_deploy_key`
-        #       * Follow doctr's instructions regarding setting up the deploy key on Github
-        #       * Replace the "secure: ..." line below with the "secure" line printed by doctr
-        # - secure: ...
-        # TODO: Encrypted GITHUB_TOKEN for deployment of documentation artifacts to Github Releases
-        #       * Generate an access token, see https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
-        #       * run `tox -e run-travis-encrypt`
-        #       * paste in e.g. "GITHUB_TOKEN=4cef449e1762da64012e8f3250cf002524e14cd1" when prompted for "Password"
-        #       * replace the "secure: ..." information below with the "secure" information printed by travis-encrypt
-        # # GITHUB_TOKEN
-        # - secure: ...
+        # Doctr deploy key
+        - secure: "nsPRHmWSMM47eCX0zFj8oWKuROe3q2yeui49Yznxx9ZnVCGApqnRfdB0xCbWYCEHzG/DYbSYtVv06iY6MhKtZVZZb9O68lS7V3Nd9t1bjAV9tlIY/rqWnn6GAuNP6GjmBkQw23Cctqr5RsZ8rQn/UAg8v/YavbZnH1o71DcYNadWvX6N5wmqYIrgeiIvmXzzEWKObciTmDAaoWKrs1LDHRLLMLqQ3Vu4SFRCpnwazQ+czVh2WzVPVe8WU1MXHxbEc8uy59klZ6D9Xi+uAaWDuGIifwY3nC2dKcsle82N2qaVMrXuAQxRCQbUwKuWMr1++c7jAHJffhLZLdfi24QhY+UUdKd6beWgszru4i0RBTJqDUZeuJqf2QKJCKYfMncnQe2Qj/ucJ7SW5K0dJMA1+kGD4/zcKcziTqHkv1iDviJLlpCOsVRR6GLWLj9dTLsQmzJWzy3JaBdMu3ISsCQ1wNXmTAhSWsREGnBn1z++DOljeqfUFii//9QVDXjoLzLiYEtnLO8jn831wzGAu1SBS2wUI+TF1jzeEPPIqrboSPumL2jKQvtgOJXEGI5dexhxc+PBNaAD/RwiDPm+ustAwHytbMClefsm3Ycd7FmQC31NigfklTYWI1y94ivUgxPz08u1pC9WcL7WOFDUNga5U4sxpKF6GWEaDCfhwskpQi8="
+        # GITHUB_TOKEN (for deployment of documentation artifacts to Github Releases)
+        - secure: p1WkD7XeXIoEWAbJ+Ukvf4GS72Qr/OInG5imMJ4YxClFd6ZuPARFZHLJgGT7SbxUZt4/melb5BIh/k+N6/9PR5vlvXMDzmGblu3TGy71pbCggJ1K8TaNbyuzxg+j6T8zLyEm2xkfplZp96bbkei1g6F7zDnSfcsdxo0wAiMFyXorq4n353A/aF/Q5c3ekwBmNt6q73fuM6F6KJpr6/l4SQRp2OdlKT55zP+uuaSmvEDqsDumvTQ81PIlRTFs9nYJ+tCA49gPvTJeLA9PZ8mIWz/Q3NkLI1muFVNxeRVrsTIP75frp9aPs8NfQPK5FoHCE/TfekSYuKJjC24Peof4HSWZUKG56e1y4JKUujFHhmRDTWgbde4Xr4JNBP2djHFMIhoblwW5t+xm8Tl8QwjCLsc0b+c4SlEc+QXflpsLTV2VwpPh053Cm78n3lZVGBVzXlTgwM5i4OEKIvMnwelmmBMfrhM9yJYMA11X1loyz6Ds3ABcrUtbrlpXKgSv6eHy3m/DtNyYVKchgSG0qkeMgxvwzxRSzhX2Wmu930l3/ulEedA/El/h5993+Ip5IcGOC4S6HKHT/dy/tksevrhb3tDTD/1DUdNSNer646rL+Y/vpJ+KXd47nKobuYN4Wgw85RjMX21aRt0iBMYC+mbugQXahoL3GQ578r8D22MKUV0=
       addons:
         apt_packages:
     - name: Python 3.6
