@@ -58,15 +58,15 @@ if [ ! -z "$TRAVIS_TAG" ]; then
         # upload as release assets
         # adapted from https://gist.github.com/stefanbuck/ce788fee19ab6eb0b4447a85fc99f447
         # This relies on the encrypted $GITHUB_TOKEN variable in .travis.yml
-        url="https://api.github.com/repos/$TRAVIS_REPO_SLUG$/releases"
+        url="https://api.github.com/repos/$TRAVIS_REPO_SLUG/releases"
         echo "Make release from tag $TRAVIS_TAG: $url"
         API_JSON=$(printf '{"tag_name": "%s","target_commitish": "master","name": "%s","body": "Release %s","draft": false,"prerelease": false}' "$TRAVIS_TAG" "$TRAVIS_TAG" "$TRAVIS_TAG")
-        echo "$API_JSON"
+        echo "submitted data = $API_JSON"
         response=$(curl --data "$API_JSON" --header "$GH_AUTH_HEADER" "$url")
         echo "Release response: $response"
         url="https://api.github.com/repos/$TRAVIS_REPO_SLUG/releases/tags/$TRAVIS_TAG"
         echo "verify $url"
-        response=$(curl ---silent --header "$GH_AUTH_HEADER" "$url")
+        response=$(curl --silent --header "$GH_AUTH_HEADER" "$url")
         echo "$response"
         eval $(echo "$response" | grep -m 1 "id.:" | grep -w id | tr : = | tr -cd '[[:alnum:]]=')
         echo "id = $id"
